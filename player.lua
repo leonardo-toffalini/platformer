@@ -10,16 +10,16 @@ function Player:new(x, y, w, h, c)
   self.vy = 0
   self.vx = 100
   self.a = 0
+  self.is_crouching = false
 end
 
 function Player:update(platforms, dt)
   self:move(dt)
   self:jump()
+  self:crouch()
 
-  if self:check_platforms(platforms) then
-    self.a = 0
-    self.vy = 0
-  else
+  if not self:check_platforms(platforms) then
+    -- no platform below => gravity applies
     -- Explicit Euler
     self.a = self.a + dt * G
     self.vy = math.min(max_v, self.vy + dt * self.a)
@@ -48,6 +48,22 @@ function Player:jump()
   end
 end
 
+function Player:crouch()
+  if love.keyboard.isDown("down") then
+    if not self.is_crouching then
+      self.is_crouching = true
+      self.h = 20
+      self.y = self.y + 10
+    end
+  else
+    if self.is_crouching then
+      self.is_crouching = false
+      self.h = 30
+      self.y = self.y - 10
+    end
+  end
+end
+
 function Player:check_boundaries()
   if self.x < 0 then
     self.x = 0
@@ -58,19 +74,23 @@ function Player:check_boundaries()
 end
 
 function Player:check_platforms(platforms)
+  -- does the collision logic with the platforms
+  -- returns true if a platform is below the player
   for _, platform in ipairs(platforms) do
     if self:check_collision(platform) then
       local d = self:check_collision_direction(platform)
       if d == "top" then
         self.y = platform.y - self.h
+        self.vy = 0
+        self.a = 0
+        return true
       elseif d == "bot" then
         self.y = platform.y + platform.h
-      elseif d == "left" then
-        self.x = platform.x - self.w
-      elseif d == "right" then
-        self.x = platform.x + platform.w
+        self.vy = 0
+        self.a = 0
+      elseif d == "left" then self.x = platform.x - self.w
+      elseif d == "right" then self.x = platform.x + platform.w
       end
-      return true
     end
   end
   return false
