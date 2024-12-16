@@ -4,7 +4,10 @@ local Platform = require("platform")
 local window_width, window_height = love.graphics.getDimensions()
 
 function love.load()
-  player = Player(200, 200, 20, 30, {204, 202, 167})
+  -- set the default resizing properties
+  love.graphics.setDefaultFilter("nearest", "nearest")
+
+  player = Player()
   platforms = {}
   platforms[1] = Platform(180, window_height - 40, 80, 20, {168, 213, 189})
   platforms[2] = Platform(240, window_height - 120, 80, 20, {168, 213, 189})
