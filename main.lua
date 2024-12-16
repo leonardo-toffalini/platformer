@@ -1,5 +1,6 @@
 local Player = require("player")
 local Platform = require("platform")
+local Background = require("background")
 
 local window_width, window_height = love.graphics.getDimensions()
 
@@ -8,6 +9,7 @@ function love.load()
   love.graphics.setDefaultFilter("nearest", "nearest")
 
   player = Player()
+  background = Background()
   platforms = {}
   platforms[1] = Platform(180, window_height - 40, 80, 20, {168, 213, 189})
   platforms[2] = Platform(240, window_height - 120, 80, 20, {168, 213, 189})
@@ -18,6 +20,7 @@ function love.update(dt)
 end
 
 function love.draw()
+  background:draw()
   player:draw()
   for _, platform in ipairs(platforms) do
     platform:draw()
