@@ -43,7 +43,7 @@ end
 
 function Rectangle:draw()
   graphics.setColor3(self.c)
-  love.graphics.rectangle("fill", self.x, self.y, self.w, self.h)
+  love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
   graphics.setColor(1, 1, 1)
 end
 

@@ -8,10 +8,10 @@ local G = 5000  -- this looked good to me
 local max_v = 500  -- this looked good to me
 
 function Player:new()
-  local x = 200; local y = 200; local w = 40; local h = 52; local c = {255, 0, 0}-- local c = {204, 202, 167}
+  local x = 100; local y = 100; local w = 40; local h = 52; local c = {255, 0, 0}-- local c = {204, 202, 167}
   Player.super:new(x, y, w, h, c)
   self.vy = 0
-  self.vx = 100
+  self.vx = 150
   self.a = 0
   self.is_crouching = false
 
@@ -71,7 +71,7 @@ function Player:jump()
   end
   if self.vy == 0 and self.a == 0 then
     self.y = self.y - 1
-    self.vy = -500
+    self.vy = -400
   end
 end
 

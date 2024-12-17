@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="17">
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="8" nextobjectid="27">
  <editorsettings>
-  <export target="testMap..lua" format="lua"/>
+  <export target="gameMap.lua" format="lua"/>
  </editorsettings>
  <tileset firstgid="1" name="minimalist" tilewidth="16" tileheight="16" tilecount="64" columns="8">
   <image source="../assets/mininicular.png" width="128" height="128"/>
  </tileset>
+ <objectgroup id="7" name="platforms">
+  <object id="17" x="95.7143" y="225" width="79.2857" height="15.7143"/>
+  <object id="18" x="272.143" y="193.571" width="78.5714" height="14.2857"/>
+  <object id="22" x="1.42857" y="192.857" width="45.7143" height="126.429"/>
+  <object id="23" x="49.2857" y="272.143" width="14.2857" height="46.4286"/>
+  <object id="24" x="65" y="303.571" width="44.2857" height="15.7143"/>
+  <object id="25" x="465.714" y="177.143" width="15" height="77.8571"/>
+  <object id="26" x="432.857" y="177.143" width="31.4286" height="14.2857"/>
+ </objectgroup>
  <layer id="2" name="background" width="30" height="20">
   <data encoding="csv">
 58,59,59,59,59,59,59,60,58,60,58,59,59,59,59,59,59,59,60,57,57,58,59,59,59,60,58,60,58,59,

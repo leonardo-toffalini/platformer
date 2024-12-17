@@ -9,17 +9,148 @@ return {
   height = 20,
   tilewidth = 16,
   tileheight = 16,
-  nextlayerid = 6,
-  nextobjectid = 17,
+  nextlayerid = 8,
+  nextobjectid = 27,
   properties = {},
   tilesets = {
     {
       name = "minimalist",
       firstgid = 1,
-      filename = "test.tsx"
+      class = "",
+      tilewidth = 16,
+      tileheight = 16,
+      spacing = 0,
+      margin = 0,
+      columns = 8,
+      image = "../assets/mininicular.png",
+      imagewidth = 128,
+      imageheight = 128,
+      objectalignment = "unspecified",
+      tilerendersize = "tile",
+      fillmode = "stretch",
+      tileoffset = {
+        x = 0,
+        y = 0
+      },
+      grid = {
+        orientation = "orthogonal",
+        width = 16,
+        height = 16
+      },
+      properties = {},
+      wangsets = {},
+      tilecount = 64,
+      tiles = {}
     }
   },
   layers = {
+    {
+      type = "objectgroup",
+      draworder = "topdown",
+      id = 7,
+      name = "platforms",
+      class = "",
+      visible = true,
+      opacity = 1,
+      offsetx = 0,
+      offsety = 0,
+      parallaxx = 1,
+      parallaxy = 1,
+      properties = {},
+      objects = {
+        {
+          id = 17,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 95.7143,
+          y = 225,
+          width = 79.2857,
+          height = 15.7143,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 18,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 272.143,
+          y = 193.571,
+          width = 78.5714,
+          height = 14.2857,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 22,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 1.42857,
+          y = 192.857,
+          width = 45.7143,
+          height = 126.429,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 23,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 49.2857,
+          y = 272.143,
+          width = 14.2857,
+          height = 46.4286,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 24,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 65,
+          y = 303.571,
+          width = 44.2857,
+          height = 15.7143,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 25,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 465.714,
+          y = 177.143,
+          width = 15,
+          height = 77.8571,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        },
+        {
+          id = 26,
+          name = "",
+          type = "",
+          shape = "rectangle",
+          x = 432.857,
+          y = 177.143,
+          width = 31.4286,
+          height = 14.2857,
+          rotation = 0,
+          visible = true,
+          properties = {}
+        }
+      }
+    },
     {
       type = "tilelayer",
       x = 0,
@@ -138,93 +269,6 @@ return {
         1, 1, 1, 18, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 12, 51, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         1, 1, 1, 1, 1, 1, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-      }
-    },
-    {
-      type = "objectgroup",
-      draworder = "topdown",
-      id = 5,
-      name = "hitboxes",
-      class = "",
-      visible = true,
-      opacity = 1,
-      offsetx = 0,
-      offsety = 0,
-      parallaxx = 1,
-      parallaxy = 1,
-      properties = {},
-      objects = {
-        {
-          id = 8,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 96.1333,
-          y = 225.023,
-          width = 79.755,
-          height = 14.242,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 12,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 0.712099,
-          y = 193.691,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 46.9985, y = 0 },
-            { x = 46.9985, y = 76.9066 },
-            { x = 62.6647, y = 78.3308 },
-            { x = 63.3768, y = 93.997 },
-            { x = 79.755, y = 111.087 },
-            { x = 94.7091, y = 111.087 },
-            { x = 111.087, y = 126.754 },
-            { x = -0.712099, y = 126.041 }
-          },
-          properties = {}
-        },
-        {
-          id = 14,
-          name = "",
-          type = "",
-          shape = "rectangle",
-          x = 272.734,
-          y = 193.691,
-          width = 79.0429,
-          height = 14.242,
-          rotation = 0,
-          visible = true,
-          properties = {}
-        },
-        {
-          id = 15,
-          name = "",
-          type = "",
-          shape = "polygon",
-          x = 432.956,
-          y = 177.313,
-          width = 0,
-          height = 0,
-          rotation = 0,
-          visible = true,
-          polygon = {
-            { x = 0, y = 0 },
-            { x = 48.4227, y = 0 },
-            { x = 47.7106, y = 79.755 },
-            { x = 31.3323, y = 65.5131 },
-            { x = 31.3323, y = 16.3783 },
-            { x = 0, y = 15.6662 }
-          },
-          properties = {}
-        }
       }
     }
   }
