@@ -1,6 +1,6 @@
-local Rectangle = require("rectangle")
-local anim8 = require("anim8")
-local graphics = require("graphics")
+local Rectangle = require("libs.rectangle")
+local anim8 = require("libs.anim8")
+local graphics = require("libs.graphics")
 local Player = Rectangle:extend()
 
 local window_width, window_height = love.graphics.getDimensions()

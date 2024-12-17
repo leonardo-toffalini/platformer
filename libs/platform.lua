@@ -1,4 +1,4 @@
-local Rectangle = require("rectangle")
+local Rectangle = require("libs.rectangle")
 local Platform = Rectangle:extend()
 
 

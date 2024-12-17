@@ -1,12 +1,15 @@
-local Player = require("player")
-local Platform = require("platform")
-local Background = require("background")
+local Player = require("libs.player")
+local Platform = require("libs.platform")
+local Background = require("libs.background")
+local sti = require("libs.sti")
 
 local window_width, window_height = love.graphics.getDimensions()
 
 function love.load()
   -- set the default resizing properties
   love.graphics.setDefaultFilter("nearest", "nearest")
+
+  gameMap = sti("maps/third.lua")
 
   player = Player()
   background = Background()
@@ -20,7 +23,9 @@ function love.update(dt)
 end
 
 function love.draw()
-  background:draw()
+  love.graphics.setColor(1, 1, 1)
+  gameMap:draw()
+  -- background:draw()
   player:draw()
   for _, platform in ipairs(platforms) do
     platform:draw()

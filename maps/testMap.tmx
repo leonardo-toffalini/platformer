@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="17">
- <tileset firstgid="1" source="test.tsx"/>
+<map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="right-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="17">
+ <editorsettings>
+  <export target="testMap..lua" format="lua"/>
+ </editorsettings>
+ <tileset firstgid="1" name="minimalist" tilewidth="16" tileheight="16" tilecount="64" columns="8">
+  <image source="../assets/mininicular.png" width="128" height="128"/>
+ </tileset>
  <layer id="2" name="background" width="30" height="20">
   <data encoding="csv">
 58,59,59,59,59,59,59,60,58,60,58,59,59,59,59,59,59,59,60,57,57,58,59,59,59,60,58,60,58,59,
@@ -73,14 +78,4 @@
 1,1,1,1,1,1,12,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="5" name="hitboxes">
-  <object id="8" x="96.1333" y="225.023" width="79.755" height="14.242"/>
-  <object id="12" x="0.712099" y="193.691">
-   <polygon points="0,0 46.9985,0 46.9985,76.9066 62.6647,78.3308 63.3768,93.997 79.755,111.087 94.7091,111.087 111.087,126.754 -0.712099,126.041"/>
-  </object>
-  <object id="14" x="272.734" y="193.691" width="79.0429" height="14.242"/>
-  <object id="15" x="432.956" y="177.313">
-   <polygon points="0,0 48.4227,0 47.7106,79.755 31.3323,65.5131 31.3323,16.3783 0,15.6662"/>
-  </object>
- </objectgroup>
 </map>

@@ -1,4 +1,4 @@
-local Object = require("classic")
+local Object = require("libs.classic")
 local Background = Object:extend()
 
 function Background:new()
