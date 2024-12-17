@@ -1,19 +1,25 @@
-local Rectangle = require("rectangle")
-local anim8 = require("anim8")
-local graphics = require("graphics")
+local Rectangle = require("libs/rectangle")
+local anim8 = require("libs/anim8")
+local graphics = require("libs/graphics")
+local wf = require("libs/windfield")
 local Player = Rectangle:extend()
 
 local window_width, window_height = love.graphics.getDimensions()
 local G = 5000  -- this looked good to me
 local max_v = 500  -- this looked good to me
 
-function Player:new()
+function Player:new(world)
   local x = 200; local y = 200; local w = 40; local h = 52; local c = {255, 0, 0}-- local c = {204, 202, 167}
   Player.super:new(x, y, w, h, c)
   self.vy = 0
   self.vx = 100
   self.a = 0
   self.is_crouching = false
+
+  world:addCollisionClass("Player")
+  self.model = world:newRectangleCollider(x, y, w, h)
+  self.model:setCollisionClass("Player")
+  self.model:setObject(self)
 
   -- animations
   self.walk_sprite = love.graphics.newImage("sprites/player_walk.png")
@@ -27,7 +33,7 @@ function Player:new()
   self.anim = self.animations.right
 
   -- debugging
-  self.show_hitbox = true
+  self.show_hitbox = false
 end
 
 function Player:update(platforms, dt)
@@ -69,9 +75,8 @@ function Player:jump()
   if not love.keyboard.isDown("up") then
     return
   end
-  if self.vy == 0 and self.a == 0 then
-    self.y = self.y - 1
-    self.vy = -500
+  if self.model:enter("Platform") then
+    self.model:applyLinearImpulse(0, -500)
   end
 end
 

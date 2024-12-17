@@ -1,5 +1,5 @@
-local Object = require("classic")
-local graphics = require("graphics")
+local Object = require("libs/classic")
+local graphics = require("libs/graphics")
 local Rectangle = Object:extend()
 
 function Rectangle:new(x, y, w, h, c)
