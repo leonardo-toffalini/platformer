@@ -22,12 +22,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ]]--
 
-local path = ... .. '.' 
-local wf = {} 
-wf.Math = require(path .. 'mlib.mlib') 
+local path = ... .. '.'
+local wf = {}
+wf.Math = require(path .. 'mlib.mlib')
 
 World = {}
-World.__index = World 
+World.__index = World
 
 function wf.newWorld(xg, yg, sleep)
     local world = wf.World.new(wf, xg, yg, sleep)
@@ -38,7 +38,7 @@ function wf.newWorld(xg, yg, sleep)
 
     -- Points all box2d_world functions to this wf.World object
     -- This means that the user can call world:setGravity for instance without having to say world.box2d_world:setGravity
-    for k, v in pairs(world.box2d_world.__index) do 
+    for k, v in pairs(world.box2d_world.__index) do
         if k ~= '__gc' and k ~= '__eq' and k ~= '__index' and k ~= '__tostring' and k ~= 'update' and k ~= 'destroy' and k ~= 'type' and k ~= 'typeOf' then
             world[k] = function(self, ...)
                 return v(self.box2d_world, ...)
@@ -63,7 +63,7 @@ function World.new(wf, xg, yg, sleep)
     self.query_debug_draw = {}
 
     love.physics.setMeter(32)
-    self.box2d_world = love.physics.newWorld(xg, yg, sleep) 
+    self.box2d_world = love.physics.newWorld(xg, yg, sleep)
 
     return setmetatable(self, World)
 end
