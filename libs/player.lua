@@ -3,7 +3,8 @@ local anim8 = require("libs.anim8")
 local graphics = require("libs.graphics")
 local Player = Rectangle:extend()
 
-local window_width, window_height = love.graphics.getDimensions()
+-- TODO: dont hardcode the height and width of the window (love.graphics.getDimension() does not work)
+local window_width, window_height = 480, 320
 local G = 5000  -- this looked good to me
 local max_v = 500  -- this looked good to me
 
@@ -11,7 +12,7 @@ function Player:new()
   local x = 100; local y = 100; local w = 40; local h = 52; local c = {255, 0, 0}-- local c = {204, 202, 167}
   Player.super:new(x, y, w, h, c)
   self.vy = 0
-  self.vx = 150
+  self.vx = 180
   self.a = 0
   self.is_crouching = false
 
@@ -27,7 +28,7 @@ function Player:new()
   self.anim = self.animations.right
 
   -- debugging
-  self.show_hitbox = true
+  self.show_hitbox = false
 end
 
 function Player:update(platforms, dt)
@@ -97,6 +98,10 @@ function Player:check_boundaries()
   end
   if self.x + self.w > window_width then
     self.x = window_width - self.w
+  end
+  if self.y > window_height then
+    self.x = 100
+    self.y = 100
   end
 end
 

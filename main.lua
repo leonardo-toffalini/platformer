@@ -33,9 +33,9 @@ function love.draw()
   -- background:draw()
   love.graphics.setColor(1, 1, 1)
   gameMap:draw()
-  for _, platform in ipairs(platforms) do
-    platform:draw()
-  end
+  -- for _, platform in ipairs(platforms) do
+  --   platform:draw()
+  -- end
   player:draw()
 end
 
