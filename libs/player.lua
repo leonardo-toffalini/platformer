@@ -11,6 +11,8 @@ local dash_distance = 50
 local moving_speed = 180
 local bigJump = 400
 local smallJump = 300
+local minAirTimeDoubleJump = 0.3
+local dashCooldown = 0.5
 
 function Player:new()
   local x = 100; local y = 100; local w = 30; local h = 39; local c = {255, 0, 0}-- local c = {204, 202, 167}
@@ -19,6 +21,7 @@ function Player:new()
   self.vx = 0
   self.a = 0
   self.is_crouching = false
+  self.dashTimer = 0
 
   -- animations
   self.walk_sprite = love.graphics.newImage("sprites/player_walk.png")
@@ -37,7 +40,7 @@ end
 
 function Player:update(platforms, dt)
   self:jump()
-  self:dash()
+  self:dash(dt)
   self:doubleJump(dt)
   -- self:crouch()
   local is_moving = self:move(dt)
@@ -91,11 +94,15 @@ function Player:jump()
   end
 end
 
-function Player:dash()
+function Player:dash(dt)
+  self.dashTimer = math.max(self.dashTimer - dt, 0)
   if self.vy == 0 and self.a == 0 then
     self.isDashAvailable = true
   end
-  if self.isDashAvailable and love.keyboard.isDown("lshift") then
+  if self.isDashAvailable and love.keyboard.isDown("lshift") and self.dashTimer == 0 then
+    self.dashTimer = dashCooldown
+    self.a = 0
+    self.vy = 0
     if self.direction == "right" then
       self.x = self.x + dash_distance
       self.isDashAvailable = false
@@ -109,11 +116,11 @@ end
 function Player:doubleJump(dt)
   if self.vy == 0 and self.a == 0 then
     self.isDoubleJumpAvailable = true
-    self.lastTimeCheck = 0
+    self.airTime = 0
     return
   end
-  self.lastTimeCheck = self.lastTimeCheck + dt
-  if self.isDoubleJumpAvailable and self.lastTimeCheck > 0.3 and love.keyboard.isDown("space") then
+  self.airTime = self.airTime + dt
+  if self.isDoubleJumpAvailable and self.airTime > minAirTimeDoubleJump and love.keyboard.isDown("space") then
     self.vy = -smallJump
     self.a = 0
     self.isDoubleJumpAvailable = false
