@@ -9,6 +9,8 @@ local G = 5000  -- this looked good to me
 local max_v = 500  -- this looked good to me
 local dash_distance = 50
 local moving_speed = 180
+local bigJump = 400
+local smallJump = 300
 
 function Player:new()
   local x = 100; local y = 100; local w = 30; local h = 39; local c = {255, 0, 0}-- local c = {204, 202, 167}
@@ -36,6 +38,7 @@ end
 function Player:update(platforms, dt)
   self:jump()
   self:dash()
+  self:doubleJump(dt)
   -- self:crouch()
   local is_moving = self:move(dt)
   if not is_moving then
@@ -45,13 +48,17 @@ function Player:update(platforms, dt)
 
   if not self:check_platforms(platforms) then
     -- no platform below => gravity applies
-    -- Explicit Euler
-    self.a = self.a + dt * G
-    self.vy = math.min(max_v, self.vy + dt * self.a)
-    self.y = self.y + dt * self.vy
+    self:applyGravity(dt)
   end
 
   self:check_boundaries()
+end
+
+function Player:applyGravity(dt)
+  -- Explicit Euler
+  self.a = self.a + dt * G
+  self.vy = math.min(max_v, self.vy + dt * self.a)
+  self.y = self.y + dt * self.vy
 end
 
 function Player:move(dt)
@@ -80,7 +87,7 @@ function Player:jump()
   end
   if self.vy == 0 and self.a == 0 then
     self.y = self.y - 1
-    self.vy = -400
+    self.vy = -bigJump
   end
 end
 
@@ -96,6 +103,20 @@ function Player:dash()
       self.x = self.x - dash_distance
       self.isDashAvailable = false
     end
+  end
+end
+
+function Player:doubleJump(dt)
+  if self.vy == 0 and self.a == 0 then
+    self.isDoubleJumpAvailable = true
+    self.lastTimeCheck = 0
+    return
+  end
+  self.lastTimeCheck = self.lastTimeCheck + dt
+  if self.isDoubleJumpAvailable and self.lastTimeCheck > 0.3 and love.keyboard.isDown("space") then
+    self.vy = -smallJump
+    self.a = 0
+    self.isDoubleJumpAvailable = false
   end
 end
 
