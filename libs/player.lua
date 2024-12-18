@@ -4,12 +4,12 @@ local graphics = require("libs.graphics")
 local Player = Rectangle:extend()
 
 -- TODO: dont hardcode the height and width of the window (love.graphics.getDimension() does not work)
-local window_width, window_height = 480, 320
+local window_width, window_height = 960, 640
 local G = 5000  -- this looked good to me
 local max_v = 500  -- this looked good to me
 
 function Player:new()
-  local x = 100; local y = 100; local w = 40; local h = 52; local c = {255, 0, 0}-- local c = {204, 202, 167}
+  local x = 100; local y = 100; local w = 30; local h = 39; local c = {255, 0, 0}-- local c = {204, 202, 167}
   Player.super:new(x, y, w, h, c)
   self.vy = 0
   self.vx = 180
@@ -28,7 +28,7 @@ function Player:new()
   self.anim = self.animations.right
 
   -- debugging
-  self.show_hitbox = false
+  self.show_hitbox = true
 end
 
 function Player:update(platforms, dt)
@@ -134,7 +134,7 @@ function Player:draw()
     love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
   end
   love.graphics.setColor(1, 1, 1)
-  self.anim:draw(self.walk_sprite, self.x, self.y, nil, 2, 2, 5, 6)
+  self.anim:draw(self.walk_sprite, self.x, self.y, nil, 1.5, 1.5, 5, 6)
 end
 
 return Player

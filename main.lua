@@ -1,8 +1,9 @@
 local Player = require("libs.player")
 local Platform = require("libs.platform")
-local Background = require("libs.background")
+-- local Background = require("libs.background")
 local sti = require("libs.sti")
 
+local scale = 2
 
 function love.load()
   -- set the default resizing properties
@@ -11,18 +12,18 @@ function love.load()
   platforms = {}
   gameMap = sti("maps/gameMap.lua")
 
-  local window_width = gameMap.width * gameMap.tilewidth
-  local window_height = gameMap.height * gameMap.tileheight
-  love.window.setMode(window_width, window_height)
+  -- local window_width = gameMap.width * gameMap.tilewidth
+  -- local window_height = gameMap.height * gameMap.tileheight
+  love.window.setMode(960, 640)
 
   if gameMap.layers["platforms"] then
-    for i, obj in pairs(gameMap.layers["platforms"].objects) do
-      platforms[#platforms+1] = Platform(obj.x, obj.y, obj.width, obj.height, {255, 0, 0})
+    for _, obj in pairs(gameMap.layers["platforms"].objects) do
+      platforms[#platforms+1] = Platform(scale * obj.x, scale * obj.y, scale * obj.width, scale * obj.height, {255, 0, 0})
     end
   end
 
   player = Player()
-  background = Background()
+  -- background = Background()
 end
 
 function love.update(dt)
@@ -32,7 +33,7 @@ end
 function love.draw()
   -- background:draw()
   love.graphics.setColor(1, 1, 1)
-  gameMap:draw()
+  gameMap:draw(0, 0, scale, scale)
   -- for _, platform in ipairs(platforms) do
   --   platform:draw()
   -- end
