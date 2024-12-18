@@ -7,12 +7,14 @@ local Player = Rectangle:extend()
 local window_width, window_height = 960, 640
 local G = 5000  -- this looked good to me
 local max_v = 500  -- this looked good to me
+local dash_distance = 50
+local moving_speed = 180
 
 function Player:new()
   local x = 100; local y = 100; local w = 30; local h = 39; local c = {255, 0, 0}-- local c = {204, 202, 167}
   Player.super:new(x, y, w, h, c)
   self.vy = 0
-  self.vx = 180
+  self.vx = 0
   self.a = 0
   self.is_crouching = false
 
@@ -33,6 +35,7 @@ end
 
 function Player:update(platforms, dt)
   self:jump()
+  self:dash()
   -- self:crouch()
   local is_moving = self:move(dt)
   if not is_moving then
@@ -53,26 +56,46 @@ end
 
 function Player:move(dt)
   -- return true if the player is moving
+  self.x = self.x + self.vx * dt
   -- left-right movement
-  if love.keyboard.isDown("left") then
-    self.x = self.x - self.vx * dt
+  if love.keyboard.isDown("a") then
+    self.vx = -moving_speed
     self.anim = self.animations.left
+    self.direction = "left"
     return true
-  elseif love.keyboard.isDown("right") then
-    self.x = self.x + self.vx * dt
+  elseif love.keyboard.isDown("d") then
+    self.vx = moving_speed
     self.anim = self.animations.right
+    self.direction = "right"
     return true
+  else
+    self.vx = 0
   end
   return false
 end
 
 function Player:jump()
-  if not love.keyboard.isDown("up") then
+  if not love.keyboard.isDown("space") then
     return
   end
   if self.vy == 0 and self.a == 0 then
     self.y = self.y - 1
     self.vy = -400
+  end
+end
+
+function Player:dash()
+  if self.vy == 0 and self.a == 0 then
+    self.isDashAvailable = true
+  end
+  if self.isDashAvailable and love.keyboard.isDown("lshift") then
+    if self.direction == "right" then
+      self.x = self.x + dash_distance
+      self.isDashAvailable = false
+    elseif self.direction == "left" then
+      self.x = self.x - dash_distance
+      self.isDashAvailable = false
+    end
   end
 end
 
