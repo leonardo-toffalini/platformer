@@ -12,8 +12,8 @@ function love.load()
   platforms = {}
   gameMap = sti("maps/gameMap.lua")
 
-  -- local window_width = gameMap.width * gameMap.tilewidth
-  -- local window_height = gameMap.height * gameMap.tileheight
+  -- local windowWidth = gameMap.width * gameMap.tilewidth
+  -- local windowHeight = gameMap.height * gameMap.tileheight
   love.window.setMode(960, 640)
 
   if gameMap.layers["platforms"] then

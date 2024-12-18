@@ -4,11 +4,11 @@ local graphics = require("libs.graphics")
 local Player = Rectangle:extend()
 
 -- TODO: dont hardcode the height and width of the window (love.graphics.getDimension() does not work)
-local window_width, window_height = 960, 640
+local windowWidth, windowHeight = 960, 640
 local G = 5000  -- this looked good to me
-local max_v = 500  -- this looked good to me
-local dash_distance = 50
-local moving_speed = 180
+local maxV = 500  -- this looked good to me
+local dashDistance = 50
+local movingSpeed = 180
 local bigJump = 400
 local smallJump = 300
 local minAirTimeDoubleJump = 0.3
@@ -20,22 +20,22 @@ function Player:new()
   self.vy = 0
   self.vx = 0
   self.a = 0
-  self.is_crouching = false
+  self.isCrouching = false
   self.dashTimer = 0
 
   -- animations
-  self.walk_sprite = love.graphics.newImage("sprites/player_walk.png")
-  self.walk_grid = anim8.newGrid(
+  self.walkSprite = love.graphics.newImage("sprites/player_walk.png")
+  self.walkGrid = anim8.newGrid(
     32, 32,
-    self.walk_sprite:getWidth(), self.walk_sprite:getHeight()
+    self.walkSprite:getWidth(), self.walkSprite:getHeight()
   )
   self.animations = {}
-  self.animations.right = anim8.newAnimation(self.walk_grid("1-6", 1), 0.1)
+  self.animations.right = anim8.newAnimation(self.walkGrid("1-6", 1), 0.1)
   self.animations.left = self.animations.right:clone():flipH()
   self.anim = self.animations.right
 
   -- debugging
-  self.show_hitbox = true
+  self.showHitbox = true
 end
 
 function Player:update(platforms, dt)
@@ -43,24 +43,24 @@ function Player:update(platforms, dt)
   self:dash(dt)
   self:doubleJump(dt)
   -- self:crouch()
-  local is_moving = self:move(dt)
-  if not is_moving then
+  local isMoving = self:move(dt)
+  if not isMoving then
     self.anim:gotoFrame(6)
   end
   self.anim:update(dt)
 
-  if not self:check_platforms(platforms) then
+  if not self:checkPlatforms(platforms) then
     -- no platform below => gravity applies
     self:applyGravity(dt)
   end
 
-  self:check_boundaries()
+  self:checkBoundaries()
 end
 
 function Player:applyGravity(dt)
   -- Explicit Euler
   self.a = self.a + dt * G
-  self.vy = math.min(max_v, self.vy + dt * self.a)
+  self.vy = math.min(maxV, self.vy + dt * self.a)
   self.y = self.y + dt * self.vy
 end
 
@@ -69,12 +69,12 @@ function Player:move(dt)
   self.x = self.x + self.vx * dt
   -- left-right movement
   if love.keyboard.isDown("a") then
-    self.vx = -moving_speed
+    self.vx = -movingSpeed
     self.anim = self.animations.left
     self.direction = "left"
     return true
   elseif love.keyboard.isDown("d") then
-    self.vx = moving_speed
+    self.vx = movingSpeed
     self.anim = self.animations.right
     self.direction = "right"
     return true
@@ -104,10 +104,10 @@ function Player:dash(dt)
     self.a = 0
     self.vy = 0
     if self.direction == "right" then
-      self.x = self.x + dash_distance
+      self.x = self.x + dashDistance
       self.isDashAvailable = false
     elseif self.direction == "left" then
-      self.x = self.x - dash_distance
+      self.x = self.x - dashDistance
       self.isDashAvailable = false
     end
   end
@@ -129,39 +129,39 @@ end
 
 function Player:crouch()
   if love.keyboard.isDown("down") then
-    if not self.is_crouching then
-      self.is_crouching = true
+    if not self.isCrouching then
+      self.isCrouching = true
       self.h = 20
       self.y = self.y + 10
     end
   else
-    if self.is_crouching then
-      self.is_crouching = false
+    if self.isCrouching then
+      self.isCrouching = false
       self.h = 30
       self.y = self.y - 10
     end
   end
 end
 
-function Player:check_boundaries()
+function Player:checkBoundaries()
   if self.x < 0 then
     self.x = 0
   end
-  if self.x + self.w > window_width then
-    self.x = window_width - self.w
+  if self.x + self.w > windowWidth then
+    self.x = windowWidth - self.w
   end
-  if self.y > window_height then
+  if self.y > windowHeight then
     self.x = 100
     self.y = 100
   end
 end
 
-function Player:check_platforms(platforms)
+function Player:checkPlatforms(platforms)
   -- does the collision logic with the platforms
   -- returns true if a platform is below the player
   for _, platform in ipairs(platforms) do
-    if self:check_collision(platform) then
-      local d = self:check_collision_direction(platform)
+    if self:checkCollision(platform) then
+      local d = self:checkCollisionDirection(platform)
       if d == "top" then
         self.y = platform.y - self.h
         self.vy = 0
@@ -180,12 +180,12 @@ function Player:check_platforms(platforms)
 end
 
 function Player:draw()
-  if self.show_hitbox then
+  if self.showHitbox then
     graphics.setColor3(self.c)
     love.graphics.rectangle("line", self.x, self.y, self.w, self.h)
   end
   love.graphics.setColor(1, 1, 1)
-  self.anim:draw(self.walk_sprite, self.x, self.y, nil, 1.5, 1.5, 5, 6)
+  self.anim:draw(self.walkSprite, self.x, self.y, nil, 1.5, 1.5, 5, 6)
 end
 
 return Player

@@ -10,30 +10,30 @@ function Rectangle:new(x, y, w, h, c)
   self.c = c
 end
 
-function Rectangle:check_collision(other)
+function Rectangle:checkCollision(other)
   return self.x + self.w > other.x
     and self.x < other.x + other.w
     and self.y + self.h > other.y
     and self.y < other.y + other.h
 end
 
-function Rectangle:check_collision_direction(other)
-  local x_left = other.x + other.w - self.x
-  local x_right = self.x + self.w - other.x
-  local y_top = other.y + other.h - self.y
-  local y_bot = self.y + self.h - other.y
+function Rectangle:checkCollisionDirection(other)
+  local xLeft = other.x + other.w - self.x
+  local xRight = self.x + self.w - other.x
+  local yTop = other.y + other.h - self.y
+  local yBot = self.y + self.h - other.y
 
-  local min_x = math.min(x_left, x_right)
-  local min_y = math.min(y_top, y_bot)
+  local minX = math.min(xLeft, xRight)
+  local minY = math.min(yTop, yBot)
 
-  if min_x < min_y then -- horizontal collision
-    if x_left > x_right then
+  if minX < minY then -- horizontal collision
+    if xLeft > xRight then
       return "left"
     else
       return "right"
     end
   else -- vertical collision
-    if y_top > y_bot then
+    if yTop > yBot then
       return "top"
     else
       return "bot"
