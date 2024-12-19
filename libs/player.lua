@@ -102,7 +102,7 @@ function Player:dash(dt)
   if self.isDashAvailable and love.keyboard.isDown("lshift") and self.dashTimer == 0 then
     self.dashTimer = dashCooldown
     self.a = 0
-    self.vy = 0
+    self.vy = 0.001
     if self.direction == "right" then
       self.x = self.x + dashDistance
       self.isDashAvailable = false
