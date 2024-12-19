@@ -6,6 +6,7 @@
  <tileset firstgid="1" name="minimalist" tilewidth="16" tileheight="16" tilecount="64" columns="8">
   <image source="../assets/mininicular.png" width="128" height="128"/>
  </tileset>
+ <tileset firstgid="65" source="test.tsx"/>
  <objectgroup id="7" name="platforms">
   <object id="17" x="95.7143" y="225" width="79.2857" height="15.7143"/>
   <object id="18" x="272.143" y="193.571" width="78.5714" height="14.2857"/>
