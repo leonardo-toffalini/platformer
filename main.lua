@@ -32,8 +32,10 @@ local player2 = require("libs/player2")
 
 function love.load()
   world = wf.newWorld(0, 512, true)
+  world:setGravity(0, 2048)
   world:addCollisionClass('Platform')
   world:addCollisionClass('Player')
+  print(world:getGravity())
 
   ground = Platform(world, 100, 500, 600, 50)
   platform = Platform(world, 350, 400, 100, 20)
