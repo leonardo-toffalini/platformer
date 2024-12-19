@@ -41,15 +41,15 @@ function love.load()
   platform = Platform(world, 350, 400, 100, 20)
   player = player2(world)
 
-  -- player:setPreSolve(function(collider_1, collider_2, contact)
-  --   if collider_1.collision_class == 'Player' and collider_2.collision_class == 'Platform' then
-  --     local px, py = collider_1:getPosition()
-  --     local pw, ph = 20, 40
-  --     local tx, ty = collider_2:getPosition()
-  --     local tw, th = 100, 20
-  --     if py + ph/2 > ty - th/2 then contact:setEnabled(false) end
-  --   end
-  -- end)
+  player.model:setPreSolve(function(collider_1, collider_2, contact)
+    if collider_1.collision_class == 'Player' and collider_2.collision_class == 'Platform' then
+      local px, py = collider_1:getPosition()
+      local pw, ph = 20, 40
+      local tx, ty = collider_2:getPosition()
+      local tw, th = 100, 20
+      if py + ph/2 > ty - th/2 then contact:setEnabled(false) end
+    end
+  end)
 end
 
 function love.update(dt)
@@ -62,8 +62,8 @@ function love.draw()
 end
 
 function love.keypressed(key)
-  if key == 'space' then
-    player:applyLinearImpulse(0, -1000)
+  if key == "up" then
+    player:jump()
   end
   if key == "escape" then
     love.event.quit()
